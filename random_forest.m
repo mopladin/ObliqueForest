@@ -29,7 +29,7 @@ function execute(X, Y)
         
     % Parameters
     iterations = 1;     % Number of forests trained        
-    T = 1;             % Number of trees for each forest
+    T = 1;              % Number of trees for each forest
     max_depth = 4;      % Tree depth including leaf nodes        
     bag_ratio = 3/3;    % Ratio of training samples for each tree
     val_ratio = 1/4;    % Ratio of input samples used for validation        
@@ -67,7 +67,7 @@ end
 
 %%
 
-% TODO: Fix
+% TODO: Fix this...
 function executeWithCrossValidation(X, Y)
 
     % Perform cross validation

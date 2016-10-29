@@ -23,7 +23,7 @@ function [error_rate] = runForestAndVisualizeResult( X_t, Y_t, X_v, Y_v, T, bag_
 
 %%
 [directions, thresholds, leafProbabilities] = train_forest( X_t, Y_t, T, bag_ratio, max_depth, tree_type);
-    
+
 %%
 [C, confidence] = predictPointClasses( directions, thresholds, leafProbabilities, X_v, T);
 

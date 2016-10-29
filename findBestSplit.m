@@ -1,4 +1,27 @@
 function [ minThreshold, minConfig, minC] = findBestSplit( X, Y, directions )
+% Find the split yielding the lowest entropy of labels.
+%
+% Try splitting the input data at all data points along the given
+% directions. Return the configuration of direction and threshold with the
+% lowest resulting entropy. 
+%
+% No margin maximization is attempted. Optimizing this function would
+% probably speed up the entire learning process significantly.
+
+% Dimensions:
+% N - number of data points
+% D - dimension of data points
+% L - number of labels
+
+% Input:
+% X - training data [NxD]
+% Y - training labels [N]
+% directions - normal vectors of splits to be evaluated
+
+% Output:
+% minThreshold - threshold value minimizing entropy
+% minConfig    - normal vector of chosen split
+% minC         - classification by chosen split
 
 minThreshold = 0;
 minConfig = [];
@@ -29,8 +52,7 @@ for j = 1:size(directions, 1)
     % Project points onto direction
     X_p = X * direction';
 
-    % Loop over thresholds for current direction 
-    % for i = min(X_p) : max(X_p)
+    % Loop over thresholds for current direction
     for index = 1:length(X_p)
         
         threshold = X_p(index);
@@ -91,10 +113,6 @@ for j = 1:size(directions, 1)
             maxInfoGain = infoGain;
         end
     end    
-end
-
-if isempty(minConfig)
-    debug = 0;
 end
 
 end

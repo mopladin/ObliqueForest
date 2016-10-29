@@ -1,4 +1,6 @@
 function [infoGain] = calculateInfoGain(base_entropy, C, Y)
+% TODO: The result is not actually the gain but the result entropy.
+%       The function could be optimized by leaving out the base_entropy.
 
 %% Calculate base entropy
 labels = unique(Y);
