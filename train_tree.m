@@ -1,9 +1,29 @@
 function [directions, thresholds, leaf_probabilities] = train_tree( X, Y, max_depth, tree_type)
+% Dimensions:
+% N - number of data points
+% D - dimension of data points
+% L - number of labels
+
+% Input:
+% X - training data [NxD]
+% Y - training labels [N]
+% max_depth - highest allowed tree depth 
+%             (in the implementation trees always have this depth, but may
+%              be artificially shortened by performing redundant splits)
+% tree_type - split strategy, available: 
+%             'aligned', 'pca', 'cca', 'random_projections'
+
+% Output:
+% directions - normal vectors of chosen splits by split nodes [N_n x D ]
+% thresholds - positions of splits along direction vectors [N_n]
+% leafProbabilities - learned label probabilities at leaf nodes [N_l x L]
+
 
 N = size(X, 1);
 D = size(X, 2);
 L = max(Y);
 
+% Number of split nodes and leafs
 N_n = (2 ^ (max_depth - 1)) - 1; 
 N_l = 2 ^ (max_depth - 1);
 
@@ -73,7 +93,8 @@ while ~isempty(unprocessed_nodes)
         % Attempt an optimization and note whether any information gain occurs
         noGain = false;
         if(optimize)
-            [ thresholds(current_node), directions(current_node, :), C, noGain] = optimizeNode(X_node, Y_node, tree_type, pca_components);
+            [ thresholds(current_node), directions(current_node, :), C, noGain] = ...
+                optimizeNode(X_node, Y_node, tree_type, pca_components);
         end
         
         % If no split is possible or necessary, perform the parent split redundantly       
@@ -115,7 +136,6 @@ while ~isempty(unprocessed_nodes)
 end
 
 %% Calculate leaf probabilities
-
 for current_leaf = 1:size(leaf_probabilities, 1)
     
     leaf_labels = Y(point_leaf_indices == current_leaf);
