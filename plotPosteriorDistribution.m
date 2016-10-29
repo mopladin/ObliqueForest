@@ -1,8 +1,9 @@
-function plotPosteriorDistribution( directions, thresholds, leafProbabilities, X, T, h)
+function plotPosteriorDistribution( directions, thresholds, leafProbabilities, X, T, limits, h)
 
 % leafProbabilities = zeros(N_l, 2, T);
 
-N_d = 60;
+N_d = 80; % Number of discrete samples for distribution
+
 minimum = [min(X(:,1)) min(X(:,2))];
 maximum = [max(X(:,1)) max(X(:,2))];
 
@@ -39,6 +40,9 @@ debug_colors(:, 3) = sum(P(:, 2, :), 3) / T;
 
 subplot(h);
 scatter(X_d(:,1), X_d(:,2), 15, debug_colors, 'filled', 's');
-axis equal;
+title('Probabilities');
+axis(limits);
+
+%axis equal;
 end
 
