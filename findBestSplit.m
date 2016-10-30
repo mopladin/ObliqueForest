@@ -3,7 +3,8 @@ function [ minThreshold, minConfig, minC] = findBestSplit( X, Y, directions )
 %
 % Try splitting the input data at all data points along the given
 % directions. Return the configuration of direction and threshold with the
-% lowest resulting entropy. 
+% lowest resulting entropy. If multiple configurations with equal
+% information gain exist, randomly choose one of them.
 %
 % No margin maximization is attempted. Optimizing this function would
 % probably speed up the entire learning process significantly.
